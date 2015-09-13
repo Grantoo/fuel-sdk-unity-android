@@ -31,3 +31,12 @@ dependencies {
 
 }
 
+// Looks like Android Studio doesn't have support for compile time only libraries (provided libraries)
+// this is a workaround to delete the unity.jar from the aar.
+task removeUnity(type: Exec) {
+    executable "sh"
+    args "removeUnity.sh"
+}
+
+assembleDebug.dependsOn(removeUnity)
+assemble.dependsOn(removeUnity)
