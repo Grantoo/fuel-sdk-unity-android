@@ -42,7 +42,7 @@ public final class FuelSDKUnitySingleton {
     }
 
     public static void useSandbox() {
-        fuel.instance().useSandbox();
+        fuel.useSandbox();
     }
 
     public static void setNotificationToken(String notificationToken) {
