@@ -4,6 +4,7 @@ package com.fuelpowered.lib.fuelsdk.unity;
  * Created by alexisbarra on 8/30/15.
  */
 
+import android.app.Activity;
 import android.util.Log;
 
 
@@ -193,5 +194,22 @@ public final class FuelSDKUnitySingleton {
         return fueldynamics.instance().syncUserValues();
     }
 
+
+    public static void onPause() {
+        Log.i(kLogTag, "OnPause");
+        Activity sActivity = UnityPlayer.currentActivity;
+        fuel.onPause(sActivity);
+    }
+
+    public static void onResume() {
+        Log.i(kLogTag, "OnResume");
+        Activity sActivity = UnityPlayer.currentActivity;
+        fuel.onResume(sActivity);
+    }
+
+    public static void onQuit() {
+        Log.i(kLogTag, "OnQuit");
+        Activity sActivity = UnityPlayer.currentActivity;
+    }
 
 }
