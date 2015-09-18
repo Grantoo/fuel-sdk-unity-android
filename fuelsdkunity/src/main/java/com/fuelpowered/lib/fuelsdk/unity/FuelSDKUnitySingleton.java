@@ -137,6 +137,8 @@ public final class FuelSDKUnitySingleton {
 
         Log.i(kLogTag, "Initialize fuelignite");
         fuelignite.init();
+        fueligniteui.init();
+        fueligniteui.instance().setOrientation(fuelorientationtype.portrait);
 
     }
 
