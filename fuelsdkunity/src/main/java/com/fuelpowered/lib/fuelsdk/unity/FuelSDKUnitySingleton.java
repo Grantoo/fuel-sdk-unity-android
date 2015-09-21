@@ -198,20 +198,15 @@ public final class FuelSDKUnitySingleton {
 
 
     public static void onPause() {
-        Log.i(kLogTag, "OnPause");
-        Activity sActivity = UnityPlayer.currentActivity;
-        fuel.onPause(sActivity);
+        Log.i(kLogTag, "onPause");
     }
 
     public static void onResume() {
-        Log.i(kLogTag, "OnResume");
-        Activity sActivity = UnityPlayer.currentActivity;
-        fuel.onResume(sActivity);
+        Log.i(kLogTag, "onResume");
     }
 
     public static void onQuit() {
-        Log.i(kLogTag, "OnQuit");
-        Activity sActivity = UnityPlayer.currentActivity;
+        Log.i(kLogTag, "onQuit");
     }
 
 }
