@@ -102,8 +102,6 @@ public final class FuelSDKUnitySingleton {
 
         Log.i(kLogTag, "Initialize Compete");
         fuelcompete.init();
-        fuelcompeteui.init();
-        fuelcompeteui.instance().setOrientation(fuelorientationtype.portrait);
     }
 
     public static boolean submitMatchResult(Map<String, Object> matchResult) {
@@ -121,6 +119,13 @@ public final class FuelSDKUnitySingleton {
     }
 
     //--Compete UI methods
+
+    public static void initializeCompeteUI() {
+
+        fuelcompeteui.init();
+
+    }
+
     public static void setOrientationuiCompete(fuelorientationtype orientation) {
         fuelcompeteui.instance().setOrientation(orientation);
     }
@@ -133,7 +138,7 @@ public final class FuelSDKUnitySingleton {
 
     //--Ignite methods
 
-    public static void initializeIngite() {
+    public static void initializeIgnite() {
 
         Log.i(kLogTag, "Initialize fuelignite");
         fuelignite.init();
@@ -170,7 +175,7 @@ public final class FuelSDKUnitySingleton {
 
     //--Ignite UI methods
 
-    public static void initializeIngiteUI() {
+    public static void initializeIgniteUI() {
 
         fueligniteui.init();
 
