@@ -36,9 +36,7 @@ import com.fuelpowered.lib.propeller.JSONHelper;
 public class FuelSDKUnitySharedActivity {
 
 	private static final String LOG_TAG = "FuelSDKUnitySharedActiv";
-	static final String SENDER_ID = "870194926634";
 	private static Activity sActivity;
-
 
 	private static IntentFilter mIntentFilter;
 
@@ -49,7 +47,7 @@ public class FuelSDKUnitySharedActivity {
 
 		Log.d(LOG_TAG, sActivity.getLocalClassName());
 
-		fuel.onCreate(sActivity, SENDER_ID);
+        fuel.onCreate(sActivity);
         fuelcompeteui.onCreate(sActivity);
 
 
@@ -81,14 +79,14 @@ public class FuelSDKUnitySharedActivity {
 	}
 
 	public static void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.d(LOG_TAG, "onActivityResult()");
+        Log.d(LOG_TAG, "onActivityResult()");
 
 		fuel.onActivityResult(sActivity, requestCode, resultCode, data);
         fuelcompeteui.onActivityResult(sActivity, requestCode, resultCode, data);
 	}
 
 	public static void onResume() {
-		Log.d(LOG_TAG, "onResume()");
+        Log.d(LOG_TAG, "onResume()");
 
 		LocalBroadcastManager.getInstance(sActivity).registerReceiver(
                 sBroadcastReceiver,
@@ -99,7 +97,7 @@ public class FuelSDKUnitySharedActivity {
 	}
 
 	public static void onPause() {
-		Log.d(LOG_TAG, "onPause()");
+        Log.d(LOG_TAG, "onPause()");
 
 		LocalBroadcastManager.getInstance(sActivity).unregisterReceiver(sBroadcastReceiver);
 

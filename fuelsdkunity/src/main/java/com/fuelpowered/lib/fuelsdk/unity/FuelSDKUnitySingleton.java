@@ -28,7 +28,6 @@ public final class FuelSDKUnitySingleton {
 
     private static final String kLogTag = "FuelSDKUnitySingleton";
 
-
     //--Fuel methods
     public static void initialize(String gameId, String gameSecret, boolean gameHasLogin,
                                   boolean gameHasInvite, boolean gameHasShare) {
@@ -201,6 +200,10 @@ public final class FuelSDKUnitySingleton {
         return fueldynamics.instance().syncUserValues();
     }
 
+    //--GCM
+    public static void initializeGCM(String googleProjectID) {
+        fuel.instance().initializeGCM(UnityPlayer.currentActivity, googleProjectID);
+    }
 
     public static void onPause() {
         Log.i(kLogTag, "onPause");
