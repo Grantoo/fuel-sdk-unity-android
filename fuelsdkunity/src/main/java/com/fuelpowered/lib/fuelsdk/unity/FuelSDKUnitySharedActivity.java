@@ -509,36 +509,7 @@ public class FuelSDKUnitySharedActivity {
                 Log.d(LOG_TAG,  "Compete tournament info message " + message);
 
                 //Toast.makeText(getApplicationContext(), "Tournament Info", Toast.LENGTH_SHORT).show();
-			} else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_EVENTS.toString())) {
-                Log.d(LOG_TAG,  "Ignite events");
-                //TODO implement
-                ////Toast.makeText(getApplicationContext(), "Events", Toast.LENGTH_SHORT).show();
-				// iterate the list and gather the events.
-				List<Map<String, Object>> events = (List<Map<String, Object>>) data.get("events");
-				for (Map<String, Object> event : events) {
-					String activityID = (String) event.get("id");
-					switch ((int) event.get("type")) {
-						case 0:
-							fuelignite.instance().getLeaderBoard(activityID);
-							break;
-						case 1:
-							fuelignite.instance().getMission(activityID);
-							break;
-						case 2:
-							fuelignite.instance().getQuest(activityID);
-							break;
-					}
-				}
-			} else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_LEADERBOARD.toString())) {
-                //TODO implement
-                Log.d(LOG_TAG,  "Ignite leaderboard");
-			} else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_MISSION.toString())) {
-                //TODO implement
-                Log.d(LOG_TAG,  "Ignite mission");
-			} else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_QUEST.toString())) {
-                //TODO implement
-                Log.d(LOG_TAG,  "Ignite quest");
-			} else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_USER_VALUES.toString())) {
+            } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_USER_VALUES.toString())) {
                 String message = null;
 
                 if (data == null) {
@@ -611,8 +582,28 @@ public class FuelSDKUnitySharedActivity {
 
                 Log.d(LOG_TAG,  "Implicit launch request message : " + message);
                 UnityPlayer.UnitySendMessage("FuelSDK", "PropellerOnImplicitLaunch", message);
-            }
+            } else {
+                String message = null;
 
+                if (data == null) {
+                    message = "";
+                } else {
+                    try {
+                        JSONObject jsonObject = JSONHelper.toJSONObject(data);
+                        if (jsonObject != null) {
+                            message = jsonObject.toString();
+                        }
+                        else {
+                            message = "";
+                        }
+                    } catch (Exception exception) {
+                        Log.w(LOG_TAG, exception);
+                        message = "";
+                    }
+                }
+                UnityPlayer.UnitySendMessage("FuelSDK", "DataReceiver", message);
+                Log.d(LOG_TAG, "Data Receiver message " + message);
+            }
 		}
 	};
 
