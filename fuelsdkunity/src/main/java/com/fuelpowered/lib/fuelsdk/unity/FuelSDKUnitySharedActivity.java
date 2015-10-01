@@ -584,21 +584,17 @@ public class FuelSDKUnitySharedActivity {
                 UnityPlayer.UnitySendMessage("FuelSDK", "PropellerOnImplicitLaunch", message);
             } else {
                 String message = null;
+                JSONObject jsonObject = new JSONObject();
 
                 if (data == null) {
-                    message = "";
+                    message = "{'action': 'NULL_DATA' , 'data' : ''}";
                 } else {
                     try {
-                        JSONObject jsonObject = JSONHelper.toJSONObject(data);
-                        if (jsonObject != null) {
-                            message = jsonObject.toString();
-                        }
-                        else {
-                            message = "";
-                        }
+                        jsonObject.put( "action" , action );
+                        jsonObject.put( "data" , JSONHelper.toJSONObject(data) );
+                        message = jsonObject.toString();
                     } catch (Exception exception) {
-                        Log.w(LOG_TAG, exception);
-                        message = "";
+                        message = "{'action': 'DATA_EXCEPTION' , 'data' : '"+exception.getMessage()+"'}";
                     }
                 }
                 UnityPlayer.UnitySendMessage("FuelSDK", "DataReceiver", message);
