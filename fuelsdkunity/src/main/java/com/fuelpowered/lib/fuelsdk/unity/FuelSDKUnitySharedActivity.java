@@ -183,31 +183,6 @@ public class FuelSDKUnitySharedActivity {
                 UnityPlayer.UnitySendMessage("FuelSDK", "PropellerOnVirtualGoodRollback", message);
                 Log.d(LOG_TAG,  "Virtual Goods Roll back message: " + message);
 
-			} else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_NOTIFICATION_ENABLED.toString())) {
-
-                String message = null;
-                fuelnotificationtype notificationType = null;
-                if(data != null) {
-
-                    notificationType = fuelnotificationtype.findByValue(Integer.parseInt(data.get("notificationType").toString()));
-                    message = Integer.toString(notificationType.value());
-                }
-
-                UnityPlayer.UnitySendMessage("FuelSDK", "PropellerOnSdkOnNotificationEnabled", Integer.toString(notificationType.value()));
-                Log.d(LOG_TAG,  "Notification Enabled message : " + message);
-
-			} else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_NOTIFICATION_DISABLED.toString())) {
-
-                String message = null;
-                fuelnotificationtype notificationType = null;
-                if(data != null) {
-                    notificationType =  fuelnotificationtype.findByValue(Integer.parseInt(data.get("notificationType").toString()));
-                    message = Integer.toString(notificationType.value());
-                }
-
-                UnityPlayer.UnitySendMessage("FuelSDK", "PropellerOnSdkOnNotificationDisabled", Integer.toString(notificationType.value()));
-                Log.d(LOG_TAG,  "Notification Disabled message : " + message);
-
             } else if (action.equals(fuelbroadcasttype.FSDK_BROADCAST_SOCIAL_LOGIN_REQUEST.toString())) {
 
                 String message = null;
