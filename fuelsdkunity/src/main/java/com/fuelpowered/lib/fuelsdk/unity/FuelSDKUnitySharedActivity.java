@@ -104,14 +104,14 @@ public class FuelSDKUnitySharedActivity {
             JSONObject jsonObject = new JSONObject();
 
             if (data == null) {
-                message = "{'action': 'NULL_DATA' , 'data' : ''}";
+                message = "{\"action\": \""+action+"\" , \"data\" : \"{}\"}";
             } else {
                 try {
                     jsonObject.put( "action" , action );
                     jsonObject.put( "data" , JSONHelper.toJSONObject(data) );
                     message = jsonObject.toString();
                 } catch (Exception exception) {
-                    message = "{'action': 'DATA_EXCEPTION' , 'data' : '"+exception.getMessage()+"'}";
+                    message = "{\"action\": \"DATA_EXCEPTION\" , \"data\" : \""+exception.getMessage()+"\"}";
                 }
             }
 
