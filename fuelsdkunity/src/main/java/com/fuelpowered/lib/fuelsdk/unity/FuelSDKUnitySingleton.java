@@ -21,6 +21,8 @@ import com.fuelpowered.lib.fuelsdk.fuelbroadcastreceiver;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import com.unity3d.player.UnityPlayer;
 
 
@@ -151,11 +153,11 @@ public final class FuelSDKUnitySingleton {
     }
 
 
-    public static void sendProgress(Map<String, Object> progress, List<String> tags) {
+    public static void sendProgress(Map<String, Object> progress, List<Object> tags) {
         fuelignite.instance().sendProgress(progress, tags);
     }
 
-    public static boolean getEvents(List<String> eventTags) {
+    public static boolean getEvents(List<Object> eventTags) {
         return  fuelignite.instance().getEvents(eventTags);
     }
 
