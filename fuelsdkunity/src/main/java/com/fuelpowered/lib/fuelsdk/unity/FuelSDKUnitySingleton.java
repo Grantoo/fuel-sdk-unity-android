@@ -36,9 +36,9 @@ public final class FuelSDKUnitySingleton {
 
         Log.i(kLogTag, "Initialize FuelSdkUnity");
 
-        fuel.init(gameId, gameSecret, gameHasLogin, gameHasInvite, gameHasShare);
+        fuel.setup(gameId, gameSecret, gameHasLogin, gameHasInvite, gameHasShare);
         fuel.instance().setLanguageCode("EN");
-        fueldynamics.init();
+        fueldynamics.setup();
 
         Log.i(kLogTag, "Finished Initialize");
     }
@@ -102,7 +102,7 @@ public final class FuelSDKUnitySingleton {
     public static void initializeCompete() {
 
         Log.i(kLogTag, "Initialize Compete");
-        fuelcompete.init();
+        fuelcompete.setup();
     }
 
     public static boolean submitMatchResult(Map<String, Object> matchResult) {
@@ -123,7 +123,7 @@ public final class FuelSDKUnitySingleton {
 
     public static void initializeCompeteUI() {
 
-        fuelcompeteui.init();
+        fuelcompeteui.setup();
 
     }
 
@@ -142,8 +142,8 @@ public final class FuelSDKUnitySingleton {
     public static void initializeIgnite() {
 
         Log.i(kLogTag, "Initialize fuelignite");
-        fuelignite.init();
-        fueligniteui.init();
+        fuelignite.setup();
+        fueligniteui.setup();
         fueligniteui.instance().setOrientation(fuelorientationtype.portrait);
 
     }
@@ -178,7 +178,7 @@ public final class FuelSDKUnitySingleton {
 
     public static void initializeIgniteUI() {
 
-        fueligniteui.init();
+        fueligniteui.setup();
 
     }
 
@@ -190,7 +190,7 @@ public final class FuelSDKUnitySingleton {
 
     public static void initializeDynamics() {
 
-        fueldynamics.init();
+        fueldynamics.setup();
     }
 
     public static boolean setUserConditions(Map<String, Object> userConditions) {
