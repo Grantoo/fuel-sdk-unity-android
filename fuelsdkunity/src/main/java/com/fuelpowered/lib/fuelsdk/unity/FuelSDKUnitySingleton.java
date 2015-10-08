@@ -5,6 +5,8 @@ package com.fuelpowered.lib.fuelsdk.unity;
  */
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 
 
@@ -19,11 +21,18 @@ import com.fuelpowered.lib.fuelsdk.fuelorientationtype;
 import com.fuelpowered.lib.fuelsdk.fuelbroadcasttype;
 import com.fuelpowered.lib.fuelsdk.fuelbroadcastreceiver;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import com.unity3d.player.UnityPlayer;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public final class FuelSDKUnitySingleton {
@@ -148,17 +157,38 @@ public final class FuelSDKUnitySingleton {
 
     }
 
-    public static boolean execMethod(String method, List<Object> params) {
-        return  fuelignite.instance().execMethod(method, params);
+    public static boolean execMethod(String method, String params) {
+        try {
+            JSONArray jsonParams = new JSONArray(params);
+            List<Object> paramsList = JSONHelper.toList(jsonParams,false);
+            return  fuelignite.instance().execMethod(method, paramsList);
+        }catch (JSONException e) {
+            return false;
+        }
     }
 
 
-    public static void sendProgress(Map<String, Object> progress, List<Object> tags) {
-        fuelignite.instance().sendProgress(progress, tags);
+    public static void sendProgress(String progress, String tags) {
+        try {
+            JSONObject jsonProgress = new JSONObject(progress);
+            HashMap<String, Object> progressMap = (HashMap<String, Object>) JSONHelper.toMap(jsonProgress);
+
+            JSONArray jsonTags = new JSONArray(tags);
+            List<Object> tagsList = JSONHelper.toList(jsonTags,false);
+            fuelignite.instance().sendProgress(progressMap, tagsList);
+        }catch (JSONException e) {
+            Log.i(kLogTag, "sendProgress error: "+e.getMessage());
+        }
     }
 
-    public static boolean getEvents(List<Object> eventTags) {
-        return  fuelignite.instance().getEvents(eventTags);
+    public static boolean getEvents(String eventTags) {
+        try {
+            JSONArray jsonEventTags = new JSONArray(eventTags);
+            List<Object> eventTagsList = JSONHelper.toList(jsonEventTags,false);
+            return  fuelignite.instance().getEvents(eventTagsList);
+        }catch (JSONException e) {
+            return false;
+        }
     }
 
     public static boolean getLeaderBoard(String boardID) {
@@ -218,5 +248,4 @@ public final class FuelSDKUnitySingleton {
     public static void onQuit() {
         Log.i(kLogTag, "onQuit");
     }
-
 }
