@@ -173,8 +173,13 @@ public final class FuelSDKUnitySingleton {
             JSONObject jsonProgress = new JSONObject(progress);
             HashMap<String, Object> progressMap = (HashMap<String, Object>) JSONHelper.toMap(jsonProgress);
 
-            JSONArray jsonTags = new JSONArray(tags);
-            List<Object> tagsList = JSONHelper.toList(jsonTags,false);
+            List<Object> tagsList = null;
+            if( tags != null ) {
+                JSONArray jsonTags = new JSONArray(tags);
+                if (jsonTags != null) {
+                    tagsList = JSONHelper.toList(jsonTags, false);
+                }
+            }
             fuelignite.instance().sendProgress(progressMap, tagsList);
         }catch (JSONException e) {
             Log.i(kLogTag, "sendProgress error: "+e.getMessage());
@@ -183,8 +188,11 @@ public final class FuelSDKUnitySingleton {
 
     public static boolean getEvents(String eventTags) {
         try {
-            JSONArray jsonEventTags = new JSONArray(eventTags);
-            List<Object> eventTagsList = JSONHelper.toList(jsonEventTags,false);
+            List<Object> eventTagsList = null;
+            if( eventTags != null ) {
+                JSONArray jsonEventTags = new JSONArray(eventTags);
+                eventTagsList = JSONHelper.toList(jsonEventTags, false);
+            }
             return  fuelignite.instance().getEvents(eventTagsList);
         }catch (JSONException e) {
             return false;
