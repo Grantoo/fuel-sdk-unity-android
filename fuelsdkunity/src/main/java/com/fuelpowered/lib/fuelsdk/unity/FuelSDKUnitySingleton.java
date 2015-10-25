@@ -163,6 +163,7 @@ public final class FuelSDKUnitySingleton {
             List<Object> paramsList = JSONHelper.toList(jsonParams,false);
             return  fuelignite.instance().execMethod(method, paramsList);
         }catch (JSONException e) {
+            Log.e(kLogTag, "ExecMethod error method : "+ method + "; params:" + params + "; Exception" + e.toString());
             return false;
         }
     }
@@ -182,7 +183,7 @@ public final class FuelSDKUnitySingleton {
             }
             fuelignite.instance().sendProgress(progressMap, tagsList);
         }catch (JSONException e) {
-            Log.i(kLogTag, "sendProgress error: "+e.getMessage());
+            Log.e(kLogTag, "sendProgress error: "+e.getMessage());
         }
     }
 
