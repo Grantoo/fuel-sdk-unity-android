@@ -4,11 +4,7 @@ package com.fuelpowered.lib.fuelsdk.unity;
  * Created by alexisbarra on 8/30/15.
  */
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.os.Debug;
 import android.util.Log;
-
 
 import com.fuelpowered.lib.fuelsdk.fuel;
 import com.fuelpowered.lib.fuelsdk.fuelcompete;
@@ -16,23 +12,18 @@ import com.fuelpowered.lib.fuelsdk.fuelcompeteui;
 import com.fuelpowered.lib.fuelsdk.fueldynamics;
 import com.fuelpowered.lib.fuelsdk.fuelignite;
 import com.fuelpowered.lib.fuelsdk.fueligniteui;
+import com.fuelpowered.lib.fuelsdk.fuelimpl.fueljsonhelper;
 import com.fuelpowered.lib.fuelsdk.fuelnotificationtype;
 import com.fuelpowered.lib.fuelsdk.fuelorientationtype;
-import com.fuelpowered.lib.fuelsdk.fuelbroadcasttype;
-import com.fuelpowered.lib.fuelsdk.fuelbroadcastreceiver;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
 import com.unity3d.player.UnityPlayer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public final class FuelSDKUnitySingleton {
@@ -160,7 +151,7 @@ public final class FuelSDKUnitySingleton {
     public static boolean execMethod(String method, String params) {
         try {
             JSONArray jsonParams = new JSONArray(params);
-            List<Object> paramsList = JSONHelper.toList(jsonParams,false);
+            List<Object> paramsList = fueljsonhelper.sharedInstance().toList(jsonParams, false);
             return  fuelignite.instance().execMethod(method, paramsList);
         }catch (JSONException e) {
             Log.e(kLogTag, "ExecMethod error method : "+ method + "; params:" + params + "; Exception" + e.toString());
@@ -172,13 +163,13 @@ public final class FuelSDKUnitySingleton {
     public static void sendProgress(String progress, String tags) {
         try {
             JSONObject jsonProgress = new JSONObject(progress);
-            HashMap<String, Object> progressMap = (HashMap<String, Object>) JSONHelper.toMap(jsonProgress);
+            HashMap<String, Object> progressMap = (HashMap<String, Object>) fueljsonhelper.sharedInstance().toMap(jsonProgress);
 
             List<Object> tagsList = null;
             if( tags != null ) {
                 JSONArray jsonTags = new JSONArray(tags);
                 if (jsonTags != null) {
-                    tagsList = JSONHelper.toList(jsonTags, false);
+                    tagsList = fueljsonhelper.sharedInstance().toList(jsonTags, false);
                 }
             }
             fuelignite.instance().sendProgress(progressMap, tagsList);
@@ -192,7 +183,7 @@ public final class FuelSDKUnitySingleton {
             List<Object> eventTagsList = null;
             if( eventTags != null ) {
                 JSONArray jsonEventTags = new JSONArray(eventTags);
-                eventTagsList = JSONHelper.toList(jsonEventTags, false);
+                eventTagsList = fueljsonhelper.sharedInstance().toList(jsonEventTags, false);
             }
             return  fuelignite.instance().getEvents(eventTagsList);
         }catch (JSONException e) {

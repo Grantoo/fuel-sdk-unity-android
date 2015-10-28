@@ -4,7 +4,6 @@ package com.fuelpowered.lib.fuelsdk.unity;
  * Created by alexisbarra on 8/30/15.
  */
 
-import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,13 +11,17 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+
 import com.fuelpowered.lib.fuelsdk.fuel;
 import com.fuelpowered.lib.fuelsdk.fuelbroadcastreceiver;
 import com.fuelpowered.lib.fuelsdk.fuelbroadcasttype;
 import com.fuelpowered.lib.fuelsdk.fuelcompeteui;
+import com.fuelpowered.lib.fuelsdk.fuelimpl.fueljsonhelper;
 import com.unity3d.player.UnityPlayer;
+
 import org.json.JSONObject;
-import com.fuelpowered.lib.propeller.JSONHelper;
+
+import java.util.Map;
 
 
 public class FuelSDKUnitySharedActivity {
@@ -108,7 +111,7 @@ public class FuelSDKUnitySharedActivity {
             } else {
                 try {
                     jsonObject.put( "action" , action );
-                    jsonObject.put( "data" , JSONHelper.toJSONObject(data) );
+                    jsonObject.put("data", fueljsonhelper.sharedInstance().toJSONObject(data) );
                     message = jsonObject.toString();
                 } catch (Exception exception) {
                     message = "{\"action\": \"DATA_EXCEPTION\" , \"data\" : \""+exception.getMessage()+"\"}";
