@@ -1,9 +1,2 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.fuelpowered.lib.fuelsdk.unity">
-
-    <application tools:replace="android:label" android:allowBackup="true" android:label="fuelsdk-unity-android-plugin">
-
-    </application>
-
-</manifest>
+    package="com.fuelpowered.lib.fuelsdk.unity"/>
