@@ -223,8 +223,18 @@ public final class FuelSDKUnitySingleton {
         fueldynamics.setup();
     }
 
-    public static boolean setUserConditions(Map<String, Object> userConditions) {
-        return fueldynamics.instance().setUserConditions(userConditions);
+    public static boolean setUserConditions(String userConditions) {
+        try{
+            JSONObject jsonProgress = new JSONObject(userConditions);
+            HashMap<String, Object> userConditionsMap = (HashMap<String, Object>) fueljsonhelper.sharedInstance().toMap(jsonProgress);
+
+            return fueldynamics.instance().setUserConditions(userConditionsMap);
+
+        }catch (JSONException e) {
+            Log.e(kLogTag, "setUserConditions error: "+e.getMessage());
+            return false;
+
+        }
     }
 
     public static boolean syncUserValues() {
