@@ -39,8 +39,6 @@ public class FuelSDKUnitySharedActivity {
 		Log.d(LOG_TAG, sActivity.getLocalClassName());
 
         fuel.onCreate(sActivity);
-        fuelcompeteui.onCreate(sActivity);
-
 
 		mIntentFilter = new IntentFilter();
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VG_LIST.toString());
@@ -73,7 +71,6 @@ public class FuelSDKUnitySharedActivity {
         Log.d(LOG_TAG, "onActivityResult()");
 
 		fuel.onActivityResult(sActivity, requestCode, resultCode, data);
-        fuelcompeteui.onActivityResult(sActivity, requestCode, resultCode, data);
 	}
 
 	public static void onResume() {
@@ -84,7 +81,6 @@ public class FuelSDKUnitySharedActivity {
                 mIntentFilter);
 
 		fuel.onResume(sActivity);
-        fuelcompeteui.onResume(sActivity);
 	}
 
 	public static void onPause() {
@@ -93,7 +89,6 @@ public class FuelSDKUnitySharedActivity {
 		LocalBroadcastManager.getInstance(sActivity).unregisterReceiver(sBroadcastReceiver);
 
 		fuel.onPause(sActivity);
-        fuelcompeteui.onPause(sActivity);
 	}
 
 
