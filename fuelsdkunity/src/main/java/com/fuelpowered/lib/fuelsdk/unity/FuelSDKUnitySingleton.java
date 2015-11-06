@@ -143,9 +143,6 @@ public final class FuelSDKUnitySingleton {
 
         Log.i(kLogTag, "Initialize fuelignite");
         fuelignite.setup();
-        fueligniteui.setup();
-        fueligniteui.instance().setOrientation(fuelorientationtype.portrait);
-
     }
 
     public static boolean execMethod(String method, String params) {
