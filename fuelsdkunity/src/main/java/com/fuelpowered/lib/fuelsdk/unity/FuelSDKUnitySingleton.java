@@ -37,7 +37,6 @@ public final class FuelSDKUnitySingleton {
         Log.i(kLogTag, "Initialize FuelSdkUnity");
 
         fuel.setup(gameId, gameSecret, gameHasLogin, gameHasInvite, gameHasShare);
-        fuel.instance().setLanguageCode("EN");
 
         Log.i(kLogTag, "Finished Initialize");
     }
