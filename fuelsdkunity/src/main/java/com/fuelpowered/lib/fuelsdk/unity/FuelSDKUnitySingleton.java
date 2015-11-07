@@ -28,6 +28,61 @@ import java.util.Map;
 
 public final class FuelSDKUnitySingleton {
 
+    /**
+     * Data type enumeration.
+     */
+    private static enum DataType {
+        
+        INTEGER("0"),
+        LONG("1"),
+        FLOAT("2"),
+        DOUBLE("3"),
+        BOOLEAN("4"),
+        STRING("5");
+        
+        /**
+         * Mapping of values to their enumeration.
+         */
+        private static Map<String, DataType> mValueEnumMap;
+        
+        /**
+         * Static initializer.
+         */
+        static {
+            mValueEnumMap = new HashMap<String, DataType>();
+            
+            for (DataType dataType : DataType.values()) {
+                mValueEnumMap.put(dataType.mValue, dataType);
+            }
+        }
+        
+        /**
+         * Enumeration value.
+         */
+        private String mValue;
+        
+        /***********************************************************************
+         * Constructor.
+         *
+         * @param value Value to bind to the enumeration.
+         */
+        private DataType(String value) {
+            mValue = value;
+        }
+        
+        /***********************************************************************
+         * Retrieves the enumeration that matches the given value.
+         * 
+         * @param value Value to retrieve the matching enumeration for.
+         * @return The matching enumeration to the given value, null if there is
+         *         no match.
+         */
+        public static DataType findByValue(String value) {
+            return mValueEnumMap.get(value);
+        }
+        
+    }
+
     private static final String kLogTag = "FuelSDKUnitySingleton";
 
     //--Fuel methods
