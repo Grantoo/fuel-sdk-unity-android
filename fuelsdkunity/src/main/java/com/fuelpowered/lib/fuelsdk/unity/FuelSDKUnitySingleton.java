@@ -105,7 +105,28 @@ public final class FuelSDKUnitySingleton {
         fuelcompete.setup();
     }
 
-    public static boolean submitMatchResult(Map<String, Object> matchResult) {
+    public static boolean submitMatchResult(String matchResultJSONString) {
+        JSONObject matchResultJSON = null;
+        
+        try {
+            matchResultJSON = new JSONObject(matchResultJSONString);
+        } catch (JSONException jsonException) {
+            return false;
+        }
+        
+        Object matchResultObject = normalizeJSONObject(matchResultJSON);
+        
+        if (matchResultObject == null) {
+            return false;
+        }
+        
+        if (!(matchResultObject instanceof Map)) {
+            return false;
+        }
+        
+        @SuppressWarnings("unchecked")
+        Map<String, Object> matchResult = (Map<String, Object>) matchResultObject;
+        
         return fuelcompete.instance().submitMatchResult(matchResult);
     }
 
@@ -258,4 +279,216 @@ public final class FuelSDKUnitySingleton {
     public static void onQuit() {
         Log.i(kLogTag, "onQuit");
     }
+    
+    //--Utility methods
+    /***************************************************************************
+     * Normalizes a JSON object into its deserialized form. Used to deserialize
+     * JSON which includes value meta-data in order to preserve it's type. Does
+     * not suffer the type conversion issues between ints versus longs, and
+     * floats versus doubles since the internal representation of primitives are
+     * strings.
+     *
+     * @param json JSON object to normalize.
+     * @return The normalized JSON object, null otherwise.
+     */
+    private static Object normalizeJSONObject(JSONObject json) {
+        if (json == null) {
+            return null;
+        }
+        
+        if (isNormalizedJSONValue(json)) {
+            return normalizeJSONValue(json);
+        }
+        
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        
+        Iterator<?> iterator = json.keys();
+        
+        while (iterator.hasNext()) {
+            String key = (String) iterator.next();
+            
+            if (key == null) {
+                continue;
+            }
+            
+            Object value = json.opt(key);
+            
+            if (value == null) {
+                continue;
+            }
+            
+            Object normalizedValue = null;
+            
+            if (value instanceof JSONArray) {
+                normalizedValue = normalizeJSONArray((JSONArray) value);
+            } else if (value instanceof JSONObject) {
+                normalizedValue = normalizeJSONObject((JSONObject) value);
+            } else {
+                continue;
+            }
+            
+            if (normalizedValue == null) {
+                continue;
+            }
+            
+            resultMap.put(key, normalizedValue);
+        }
+        
+        return resultMap;
+    }
+    
+    /***************************************************************************
+     * Normalizes a JSON array into its deserialized form. Used to deserialize
+     * JSON which includes value meta-data in order to preserve it's type. Does
+     * not suffer the type conversion issues between ints versus longs, and
+     * floats versus doubles since the internal representation of primitives are
+     * strings.
+     *
+     * @param json JSON array to normalize.
+     * @return The normalized JSON array, null otherwise.
+     */
+    private static Object normalizeJSONArray(JSONArray json) {
+        if (json == null) {
+            return null;
+        }
+        
+        List<Object> resultList = new ArrayList<Object>();
+        
+        int count = json.length();
+        
+        for (int index = 0; index < count; index++) {
+            Object value = json.opt(index);
+            
+            if (value == null) {
+                continue;
+            }
+            
+            Object normalizedValue = null;
+            
+            if (value instanceof JSONArray) {
+                normalizedValue = normalizeJSONArray((JSONArray) value);
+            } else if (value instanceof JSONObject) {
+                normalizedValue = normalizeJSONObject((JSONObject) value);
+            } else {
+                continue;
+            }
+            
+            if (normalizedValue == null) {
+                continue;
+            }
+            
+            resultList.add(normalizedValue);
+        }
+        
+        return resultList;
+    }
+    
+    /***************************************************************************
+     * Normalizes a JSON value into its deserialized form. Used to deserialize
+     * JSON which includes value meta-data in order to preserve it's type. Does
+     * not suffer the type conversion issues between ints versus longs, and
+     * floats versus doubles since the internal representation of primitives are
+     * strings.
+     *
+     * @param json JSON value to normalize.
+     * @return The normalized JSON value, null otherwise.
+     */
+    private static Object normalizeJSONValue(JSONObject json) {
+        if (json == null) {
+            return null;
+        }
+        
+        String type = (String) json.opt("type");
+        String value = (String) json.opt("value");
+        
+        if ((type == null) || (value == null)) {
+            return null;
+        }
+        
+        DataType dataType = DataType.findByValue(type);
+        
+        if (dataType == null) {
+            return null;
+        }
+        
+        switch (dataType) {
+            case INTEGER:
+                try {
+                    return Integer.parseInt(value);
+                } catch (NumberFormatException numberFormatException) {
+                    return null;
+                }
+            case LONG:
+                try {
+                    return Long.parseLong(value);
+                } catch (NumberFormatException numberFormatException) {
+                    return null;
+                }
+            case FLOAT:
+                try {
+                    return Float.parseFloat(value);
+                } catch (NumberFormatException numberFormatException) {
+                    return null;
+                }
+            case DOUBLE:
+                try {
+                    return Double.parseDouble(value);
+                } catch (NumberFormatException numberFormatException) {
+                    return null;
+                }
+            case BOOLEAN:
+                return Boolean.parseBoolean(value);
+            case STRING:
+                return value;
+            default:
+                return null;
+        }
+    }
+    
+    /***************************************************************************
+     * Validates whether or not the given JSON object is a serialized JSON
+     * value.
+     * 
+     * @param json JSON object to validate.
+     * @return True if the given JSON object is a serialized JSON value, false
+     *         otherwise.
+     */
+    private static boolean isNormalizedJSONValue(JSONObject json) {
+        if (json == null) {
+            return false;
+        }
+        
+        Object checksumObject = json.opt("checksum");
+        
+        if (!(checksumObject instanceof String)) {
+            return false;
+        }
+        
+        String checksum = (String) checksumObject;
+        
+        if (!checksum.equals("faddface")) {
+            return false;
+        }
+        
+        Object typeObject = json.opt("type");
+        
+        if (!(typeObject instanceof String)) {
+            return false;
+        }
+        
+        String type = (String) json.opt("type");
+        
+        if (DataType.findByValue(type) == null) {
+            return false;
+        }
+        
+        Object valueObject = json.opt("value");
+        
+        if (!(valueObject instanceof String)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
 }
