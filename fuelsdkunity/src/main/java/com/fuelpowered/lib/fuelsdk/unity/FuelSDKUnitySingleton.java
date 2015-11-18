@@ -264,6 +264,10 @@ public final class FuelSDKUnitySingleton {
         }
     }
 
+    public static boolean joinEvent(String eventID) {
+        return  fuelignite.instance().joinEvent(eventID);
+    }
+
     public static boolean getLeaderBoard(String boardID) {
         return  fuelignite.instance().getLeaderBoard(boardID);
     }
