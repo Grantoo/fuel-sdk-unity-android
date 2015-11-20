@@ -110,13 +110,11 @@ public class FuelSDKUnitySharedActivity {
                     jsonObject.put("data", fueljsonhelper.sharedInstance().toJSONObject(data) );
                     message = jsonObject.toString();
                 } catch (Exception exception) {
-                    message = "{\"action\": \"DATA_EXCEPTION\" , \"data\" : \""+exception.getMessage()+"\"}";
+                    Log.w(LOG_TAG, "Exception in processing broadcast message: " + exception.getMessage());
                 }
             }
 
-            Log.d(LOG_TAG, "Data Receiver message " + message);
             UnityPlayer.UnitySendMessage("FuelSDK", "DataReceiver", message);
-
 		}
 	};
 
