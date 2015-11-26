@@ -103,7 +103,7 @@ public class FuelSDKUnitySharedActivity {
             JSONObject jsonObject = new JSONObject();
 
             if (data == null) {
-                message = "{\"action\": \""+action+"\" , \"data\" : \"{}\"}";
+                message = "{\"action\": \""+action+"\" , \"data\" : {}}";
             } else {
                 try {
                     jsonObject.put( "action" , action );
