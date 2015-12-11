@@ -321,7 +321,7 @@ public final class FuelSDKUnitySingleton {
 
     //--GCM
     public static void initializeGCM(String googleProjectID) {
-        fuel.instance().initializeGCM(UnityPlayer.currentActivity, googleProjectID);
+        fuel.initializeGCM(UnityPlayer.currentActivity, googleProjectID);
     }
 
     public static void onPause() {
