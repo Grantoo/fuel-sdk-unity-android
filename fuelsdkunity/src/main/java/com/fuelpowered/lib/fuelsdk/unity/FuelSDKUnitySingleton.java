@@ -98,10 +98,6 @@ public final class FuelSDKUnitySingleton {
         Log.i(kLogTag, "Finished Initialize");
     }
 
-    public static void useSandbox() {
-        fuel.useSandbox();
-    }
-
     public static void setNotificationToken(String notificationToken) {
         fuel.instance().setNotificationToken(notificationToken);
     }
