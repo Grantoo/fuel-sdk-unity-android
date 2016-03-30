@@ -264,6 +264,10 @@ public final class FuelSDKUnitySingleton {
         return  fuelignite.instance().joinEvent(eventID);
     }
 
+    public static boolean getNotices() {
+        return fuelignite.instance().getNotices();
+    }
+
     public static boolean getLocalizationFile() {
         return fuel.instance().getLocalizationFile();
     }
