@@ -268,6 +268,23 @@ public final class FuelSDKUnitySingleton {
         return fuelignite.instance().getNotices();
     }
 
+    public static boolean acknowledgeNotices(String noticeIDs) {
+        try {
+            List<Object> noticeIDsList = null;
+            if( noticeIDs != null ) {
+                JSONArray jsonIDs = new JSONArray(noticeIDs);
+                if (jsonIDs != null) {
+                    noticeIDsList = fueljsonhelper.sharedInstance().toList(jsonIDs, false);
+                }
+            }
+
+            return fuelignite.instance().acknowledgeNotices(noticeIDsList);
+        }catch (JSONException e) {
+            Log.e(kLogTag, "acknowledgeNotices error: "+e.getMessage());
+            return false;
+        }
+    }
+
     public static boolean getLocalizationFile() {
         return fuel.instance().getLocalizationFile();
     }
