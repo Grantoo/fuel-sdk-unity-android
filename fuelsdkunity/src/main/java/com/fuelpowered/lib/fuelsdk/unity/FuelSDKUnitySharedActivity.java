@@ -67,6 +67,8 @@ public class FuelSDKUnitySharedActivity {
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_QUEST.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_JOIN_EVENT.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_LOCALIZATION_LOADED.toString());
+
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_RECEIVE_DATA.toString());
 	}
 
 	public static void onActivityResult(int requestCode, int resultCode, Intent data) {
