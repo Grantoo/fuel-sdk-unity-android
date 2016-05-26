@@ -276,6 +276,14 @@ public final class FuelSDKUnitySingleton {
         return fuelignite.instance().getMission(missionID);
     }
 
+    public static boolean getOffer(String offerID) {
+        return fuelignite.instance().getOffer(offerID);
+    }
+
+    public static boolean acceptOffer(String offerID) {
+        return fuelignite.instance().acceptOffer(offerID);
+    }
+
     public static boolean getQuest(String questID) {
         return  fuelignite.instance().getQuest(questID);
     }
