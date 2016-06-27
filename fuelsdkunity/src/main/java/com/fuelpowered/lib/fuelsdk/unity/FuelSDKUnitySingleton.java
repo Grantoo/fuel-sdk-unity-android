@@ -5,6 +5,7 @@ package com.fuelpowered.lib.fuelsdk.unity;
  */
 
 import android.util.Log;
+import android.os.Bundle;
 
 import com.fuelpowered.lib.fuelsdk.fuel;
 import com.fuelpowered.lib.fuelsdk.fuelcompete;
@@ -145,6 +146,14 @@ public final class FuelSDKUnitySingleton {
 
     public static boolean sdkSocialShareCompleted() {
         return fuel.instance().sdkSocialShareCompleted();
+    }
+
+    public static boolean requestUpdateUserInfo(String userDetails) { 
+        return fuel.instance().requestUpdateUserInfo(userDetails);
+    }
+
+    public static boolean requestUserAvatars(){
+        return fuel.instance.requestUserAvatars();
     }
 
 
