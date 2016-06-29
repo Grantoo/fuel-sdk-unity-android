@@ -153,10 +153,10 @@ public final class FuelSDKUnitySingleton {
     }
 
     public static boolean requestUserAvatars(){
-        return fuel.instance.requestUserAvatars();
+        return fuel.instance().requestUserAvatars();
     }
     public static boolean getUserInfo(){
-        return fuel.instance.getUserInfo();
+        return fuel.instance().getUserInfo();
     }
 
 
