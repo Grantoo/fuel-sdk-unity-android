@@ -148,17 +148,49 @@ public final class FuelSDKUnitySingleton {
         return fuel.instance().sdkSocialShareCompleted();
     }
 
-    public static boolean requestUpdateUserInfo(String userDetails) { 
-        return fuel.instance().requestUpdateUserInfo(userDetails);
+    public static boolean requestUpdateUserInfo(String userInfoJSONString) {
+        JSONObject userInfoJSON = null;
+
+        try {
+            userInfoJSON = new JSONObject(userInfoJSONString);
+        } catch (JSONException jsonException) {
+            return false;
+        }
+
+        Object userInfoObject = normalizeJSONObject(userInfoJSON);
+
+        if (userInfoObject == null) {
+            return false;
+        }
+
+        if (!(userInfoObject instanceof Map)) {
+            return false;
+        }
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> userInfo = (Map<String, Object>) userInfoObject;
+
+        return fuel.instance().requestUpdateUserInfo(userInfo);
     }
 
     public static boolean requestUserAvatars(){
         return fuel.instance().requestUserAvatars();
     }
-    public static boolean getUserInfo(){
-        return fuel.instance().getUserInfo();
-    }
 
+    public static String getUserInfo(){
+        Map<String, Object> userInfo = fuel.instance().getUserInfo();
+
+        JSONObject userInfoJSON = null;
+
+        try {
+            userInfoJSON = fueljsonhelper.sharedInstance().toJSONObject(userInfo);
+        } catch (Exception exception) {
+            Log.w(kLogTag, "Unable to coerce Map to JSONObject");
+            return null;
+        }
+
+        return userInfoJSON.toString();
+    }
 
     //--Compete methods
 

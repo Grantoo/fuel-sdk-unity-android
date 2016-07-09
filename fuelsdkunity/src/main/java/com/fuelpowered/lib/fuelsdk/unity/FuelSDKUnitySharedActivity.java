@@ -71,7 +71,6 @@ public class FuelSDKUnitySharedActivity {
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_LOCALIZATION_LOADED.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_USER_INFO_UPDATED.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_USER_AVATARS.toString());
-		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_USER_INFO.toString());
         mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_RECEIVE_DATA.toString());
 	}
 
