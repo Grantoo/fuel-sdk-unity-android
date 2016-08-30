@@ -372,8 +372,8 @@ public final class FuelSDKUnitySingleton {
     }
 
     //--GCM
-    public static void initializeGCM(String googleProjectID) {
-        fuel.initializeGCM(UnityPlayer.currentActivity, googleProjectID);
+    public static void initializeCloudMessaging(String senderId) {
+        fuel.initializeCloudMessaging(UnityPlayer.currentActivity, senderId);
     }
 
     public static void onPause() {
