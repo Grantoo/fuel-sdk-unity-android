@@ -7,12 +7,12 @@ package com.fuelpowered.lib.fuelsdk.unity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.unity3d.player.UnityPlayerActivity;
+import muneris.android.MunerisUnityActivity;
 
-public class FuelSDKUnityActivity extends UnityPlayerActivity {
+public class FuelSDKUnityActivity extends MunerisUnityActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FuelSDKUnitySharedActivity.onCreate(savedInstanceState);
     }
