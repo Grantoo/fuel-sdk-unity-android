@@ -41,4 +41,5 @@ dependencies {
     compile 'com.android.support:support-v4:24.1.1'
     provided files('libs/unity.jar')
     provided(name:'fuelsdk', ext:'aar')
+    provided(name:'muneris', ext:'aar')
 }
