@@ -100,19 +100,19 @@ public final class FuelSDKUnitySingleton {
     }
 
     public static void setNotificationToken(String notificationToken) {
-        fuel.instance().setNotificationToken(notificationToken);
+        fuel.setNotificationToken(notificationToken);
     }
 
     public static boolean enableNotification(fuelnotificationtype notificationType) {
-        return fuel.instance().enableNotification(notificationType);
+        return fuel.enableNotification(notificationType);
     }
 
     public static boolean disableNotification(fuelnotificationtype notificationType) {
-        return fuel.instance().disableNotification(notificationType);
+        return fuel.disableNotification(notificationType);
     }
 
     public static boolean isNotificationEnabled(fuelnotificationtype notificationType) {
-        return fuel.instance().isNotificationEnabled(notificationType);
+        return fuel.isNotificationEnabled(notificationType);
     }
 
     public static void setLanguageCode(String langCode) {
@@ -309,7 +309,7 @@ public final class FuelSDKUnitySingleton {
     }
 
     public static boolean getLocalizationFile() {
-        return fuel.instance().getLocalizationFile();
+        return fuel.getLocalizationFile();
     }
 
     public static boolean getLeaderBoard(String boardID) {
