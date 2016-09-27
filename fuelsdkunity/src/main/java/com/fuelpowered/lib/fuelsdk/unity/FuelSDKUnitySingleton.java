@@ -4,6 +4,7 @@ package com.fuelpowered.lib.fuelsdk.unity;
  * Created by alexisbarra on 8/30/15.
  */
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import com.fuelpowered.lib.fuelsdk.fueldynamics;
 import com.fuelpowered.lib.fuelsdk.fuelignite;
 import com.fuelpowered.lib.fuelsdk.fueligniteui;
 import com.fuelpowered.lib.fuelsdk.fuelimpl.fueljsonhelper;
+import com.fuelpowered.lib.fuelsdk.fuellocalnotificationtype;
 import com.fuelpowered.lib.fuelsdk.fuelnotificationtype;
 import com.fuelpowered.lib.fuelsdk.fuelorientationtype;
 import com.unity3d.player.UnityPlayer;
@@ -113,6 +115,21 @@ public final class FuelSDKUnitySingleton {
 
     public static boolean isNotificationEnabled(fuelnotificationtype notificationType) {
         return fuel.isNotificationEnabled(notificationType);
+    }
+
+    public static boolean setLocalNotificationMessage(String localNotificationType, String message) {
+        if (localNotificationType == null) {
+            return false;
+        }
+
+        fuellocalnotificationtype type =
+                fuellocalnotificationtype.findByAlias(localNotificationType.toLowerCase());
+
+        if (type == null) {
+            return false;
+        }
+
+        return fuel.setLocalNotificationMessage(type, message);
     }
 
     public static void setLanguageCode(String langCode) {
