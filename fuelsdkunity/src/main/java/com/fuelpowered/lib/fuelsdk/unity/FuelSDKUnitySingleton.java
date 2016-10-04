@@ -132,6 +132,36 @@ public final class FuelSDKUnitySingleton {
         return fuel.setLocalNotificationMessage(type, message);
     }
 
+    public static boolean setLocalNotificationActive(String localNotificationType, boolean active) {
+        if (localNotificationType == null) {
+            return false;
+        }
+
+        fuellocalnotificationtype type =
+                fuellocalnotificationtype.findByAlias(localNotificationType.toLowerCase());
+
+        if (type == null) {
+            return false;
+        }
+
+        return fuel.setLocalNotificationActive(type, active);
+    }
+
+    public static boolean isLocalNotificationActive(String localNotificationType) {
+        if (localNotificationType == null) {
+            return false;
+        }
+
+        fuellocalnotificationtype type =
+                fuellocalnotificationtype.findByAlias(localNotificationType.toLowerCase());
+
+        if (type == null) {
+            return false;
+        }
+
+        return fuel.isLocalNotificationActive(type);
+    }
+
     public static void setLanguageCode(String langCode) {
         fuel.instance().setLanguageCode(langCode);
     }
