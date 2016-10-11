@@ -74,6 +74,7 @@ public class FuelSDKUnitySharedActivity {
         mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_RECEIVE_DATA.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_DYNAMICS_ENGINE_LOADED.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_ENGINE_LOADED.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_SERVER_API_STATUS_UPDATED.toString());
 	}
 
 	public static void onActivityResult(int requestCode, int resultCode, Intent data) {
