@@ -7,9 +7,9 @@ package com.fuelpowered.lib.fuelsdk.unity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import muneris.android.MunerisUnityActivity;
+import heman.HemanActivity;
 
-public class FuelSDKUnityActivity extends MunerisUnityActivity {
+public class FuelSDKUnityActivity extends HemanActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
