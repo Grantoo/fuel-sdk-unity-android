@@ -224,19 +224,8 @@ public final class FuelSDKUnitySingleton {
         return fuel.instance().requestUserAvatars();
     }
 
-    public static String getUserInfo(){
-        Map<String, Object> userInfo = fuel.instance().getUserInfo();
-
-        JSONObject userInfoJSON = null;
-
-        try {
-            userInfoJSON = fueljsonhelper.sharedInstance().toJSONObject(userInfo);
-        } catch (Exception exception) {
-            Log.w(kLogTag, "Unable to coerce Map to JSONObject");
-            return null;
-        }
-
-        return userInfoJSON.toString();
+    public static boolean requestUserInfo(){
+        return fuel.instance().requestUserInfo();
     }
 
     //--Compete methods
