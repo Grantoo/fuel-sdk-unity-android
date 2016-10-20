@@ -69,6 +69,7 @@ public class FuelSDKUnitySharedActivity {
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_ACCEPT_OFFER.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_JOIN_EVENT.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_LOCALIZATION_LOADED.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_USER_INFO.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_USER_INFO_UPDATED.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_USER_AVATARS.toString());
         mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_RECEIVE_DATA.toString());
@@ -107,10 +108,9 @@ public class FuelSDKUnitySharedActivity {
 		@SuppressWarnings("unchecked")
 		@Override
 		public void onReceive(Context context, String action, Map<String, Object> data) {
-
             String message = null;
             JSONObject jsonObject = new JSONObject();
-
+			
             if (data == null) {
                 message = "{\"action\": \""+action+"\" , \"data\" : {}}";
             } else {
