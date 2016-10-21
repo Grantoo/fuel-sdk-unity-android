@@ -179,8 +179,32 @@ public final class FuelSDKUnitySingleton {
         return fuel.instance().syncVirtualGoods();
     }
 
-    public static boolean acknowledgeVirtualGoods(final String transactionId, final boolean consumed) {
-        return fuel.instance().acknowledgeVirtualGoods(transactionId, consumed);
+    public static boolean acknowledgeVirtualGoods(String transactionId, String acknowledgementTokensJSONString, boolean consumed) {
+        List<String> acknowledgementTokens = null;
+
+        if (acknowledgementTokensJSONString != null) {
+            JSONArray acknowledgementTokensJSON = null;
+
+            try {
+                acknowledgementTokensJSON = new JSONArray(acknowledgementTokensJSONString);
+            } catch (JSONException jsonException) {
+                return false;
+            }
+
+            acknowledgementTokens = new ArrayList<String>();
+
+            for (int index = 0; index < acknowledgementTokensJSON.length(); index++) {
+                String acknowledgementToken = acknowledgementTokensJSON.optString(index);
+
+                if (acknowledgementToken == null) {
+                    return false;
+                }
+
+                acknowledgementTokens.add(acknowledgementToken);
+            }
+        }
+
+        return fuel.instance().acknowledgeVirtualGoods(transactionId, acknowledgementTokens, consumed);
     }
 
     public static boolean sdkSocialLoginCompleted(Map<String, Object> loginData) {
