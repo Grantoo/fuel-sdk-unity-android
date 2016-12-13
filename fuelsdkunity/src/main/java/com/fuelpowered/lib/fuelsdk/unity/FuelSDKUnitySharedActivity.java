@@ -44,6 +44,7 @@ public class FuelSDKUnitySharedActivity {
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VG_LIST.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VG_ROLLBACK.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VG_CONSUME_SUCCESS.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VG_SYNC_FAIL.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_NOTIFICATION_ENABLED.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_NOTIFICATION_DISABLED.toString());
 
