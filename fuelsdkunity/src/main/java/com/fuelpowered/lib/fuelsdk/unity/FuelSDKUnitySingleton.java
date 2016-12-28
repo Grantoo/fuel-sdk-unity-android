@@ -174,12 +174,20 @@ public final class FuelSDKUnitySingleton {
         return fuel.instance().setNotificationIcon(iconName);
     }
 
-    public static boolean syncVirtualGoods() {
-
-        return fuel.instance().syncVirtualGoods();
+    public static boolean openVirtualGoodsConnection() {
+        return fuel.instance().openVirtualGoodsConnection();
     }
 
-    public static boolean acknowledgeVirtualGoods(String transactionId, String acknowledgementTokensJSONString, boolean consumed) {
+    public static boolean closeVirtualGoodsConnection() {
+        return fuel.instance().closeVirtualGoodsConnection();
+    }
+
+    public static boolean syncVirtualGoods(String tag) {
+
+        return fuel.instance().syncVirtualGoods(tag);
+    }
+
+    public static boolean acknowledgeVirtualGoods(String tag, String acknowledgementTokensJSONString) {
         List<String> acknowledgementTokens = null;
 
         if (acknowledgementTokensJSONString != null) {
@@ -204,7 +212,7 @@ public final class FuelSDKUnitySingleton {
             }
         }
 
-        return fuel.instance().acknowledgeVirtualGoods(transactionId, acknowledgementTokens, consumed);
+        return fuel.instance().acknowledgeVirtualGoods(tag, acknowledgementTokens);
     }
 
     public static boolean sdkSocialLoginCompleted(Map<String, Object> loginData) {

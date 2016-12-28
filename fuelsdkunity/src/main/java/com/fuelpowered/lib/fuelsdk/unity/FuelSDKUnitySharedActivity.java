@@ -41,10 +41,11 @@ public class FuelSDKUnitySharedActivity {
         fuel.onCreate(sActivity);
 
 		mIntentFilter = new IntentFilter();
-		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VG_LIST.toString());
-		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VG_ROLLBACK.toString());
-		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VG_CONSUME_SUCCESS.toString());
-		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VG_SYNC_FAIL.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VIRTUAL_GOODS_LIST.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VIRTUAL_GOODS_ACKNOWLEDGED.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VIRTUAL_GOODS_TRANSACTION_CONNECTED.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VIRTUAL_GOODS_TRANSACTION_DISCONNECTED.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_VIRTUAL_GOODS_TRANSACTION_ERROR.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_NOTIFICATION_ENABLED.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_NOTIFICATION_DISABLED.toString());
 
