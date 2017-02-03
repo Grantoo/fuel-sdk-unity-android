@@ -372,6 +372,19 @@ public final class FuelSDKUnitySingleton {
         }
     }
 
+    public static boolean getSampleEvents(String eventTags) {
+        try {
+            List<Object> eventTagsList = null;
+            if( eventTags != null ) {
+                JSONArray jsonEventTags = new JSONArray(eventTags);
+                eventTagsList = fueljsonhelper.sharedInstance().toList(jsonEventTags, false);
+            }
+            return  fuelignite.instance().getSampleEvents(eventTagsList);
+        }catch (JSONException e) {
+            return false;
+        }
+    }
+
     public static boolean joinEvent(String eventID) {
         return  fuelignite.instance().joinEvent(eventID);
     }
