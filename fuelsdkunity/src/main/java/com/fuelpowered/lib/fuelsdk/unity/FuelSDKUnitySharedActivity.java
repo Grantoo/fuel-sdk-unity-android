@@ -65,6 +65,7 @@ public class FuelSDKUnitySharedActivity {
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_COMPETE_FAIL.toString());
 
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_EVENTS.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_SAMPLE_EVENTS.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_LEADERBOARD.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_MISSION.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_QUEST.toString());
