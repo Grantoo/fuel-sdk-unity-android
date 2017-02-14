@@ -315,7 +315,7 @@ public final class FuelSDKUnitySingleton {
         fuelcompeteui.instance().setOrientation(orientation);
     }
 
-    public static boolean Launch() {
+    public static boolean launch() {
         Log.i(kLogTag, "Launch");
         return fuelcompeteui.instance().launch();
     }
