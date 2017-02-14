@@ -4,9 +4,7 @@ package com.fuelpowered.lib.fuelsdk.unity;
  * Created by alexisbarra on 8/30/15.
  */
 
-import android.text.TextUtils;
 import android.util.Log;
-import android.os.Bundle;
 
 import com.fuelpowered.lib.fuelsdk.fuel;
 import com.fuelpowered.lib.fuelsdk.fuelcompete;
@@ -470,6 +468,80 @@ public final class FuelSDKUnitySingleton {
     }
     
     //--Utility methods
+    /***************************************************************************
+     * Deserializes a Map<String, Object> from the given JSON string. The JSON
+     * string must have the primative map values encoded with meta-data used to
+     * preserve the primitive value type. This is to eliminate type conversion
+     * issues between ints versus longs, and floats versus doubles since the
+     * internal representation of primitives are strings.
+     *
+     * @param jsonString The JSON string encoded Map<String, Object> to
+     *                   deserialize.
+     * @return The deserialized Map<String, Object> on success, null otherwise.
+     */
+    private static Map<String, Object> deserializeMap(String jsonString) {
+        if (jsonString == null) {
+            return null;
+        }
+
+        JSONObject json = null;
+
+        try {
+            json = new JSONObject(jsonString);
+        } catch (JSONException jsonException) {
+            return null;
+        }
+
+        Object object = normalizeJSONObject(json);
+
+        if (object == null) {
+            return null;
+        }
+
+        if (!(object instanceof Map)) {
+            return null;
+        }
+
+        return (Map<String, Object>)object;
+    }
+
+    /***************************************************************************
+     * Deserializes a List<Object> from the given JSON string. The JSON string
+     * must have the primative list values encoded with meta-data used to
+     * preserve the primitive value type. This is to eliminate type conversion
+     * issues between ints versus longs, and floats versus doubles since the
+     * internal representation of primitives are strings.
+     *
+     * @param jsonString The JSON string encoded List<Object> to
+     *                   deserialize.
+     * @return The deserialized List<Object> on success, null otherwise.
+     */
+    private static List<Object> deserializeList(String jsonString) {
+        if (jsonString == null) {
+            return null;
+        }
+
+        JSONArray json = null;
+
+        try {
+            json = new JSONArray(jsonString);
+        } catch (JSONException jsonException) {
+            return null;
+        }
+
+        Object object = normalizeJSONArray(json);
+
+        if (object == null) {
+            return null;
+        }
+
+        if (!(object instanceof List)) {
+            return null;
+        }
+
+        return (List<Object>)object;
+    }
+
     /***************************************************************************
      * Normalizes a JSON object into its deserialized form. Used to deserialize
      * JSON which includes value meta-data in order to preserve it's type. Does
