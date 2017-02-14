@@ -12,7 +12,6 @@ import com.fuelpowered.lib.fuelsdk.fuelcompeteui;
 import com.fuelpowered.lib.fuelsdk.fueldynamics;
 import com.fuelpowered.lib.fuelsdk.fuelignite;
 import com.fuelpowered.lib.fuelsdk.fueligniteui;
-import com.fuelpowered.lib.fuelsdk.fuelimpl.fueljsonhelper;
 import com.fuelpowered.lib.fuelsdk.fuellocalnotificationtype;
 import com.fuelpowered.lib.fuelsdk.fuelnotificationtype;
 import com.fuelpowered.lib.fuelsdk.fuelorientationtype;
@@ -189,26 +188,19 @@ public final class FuelSDKUnitySingleton {
         List<String> acknowledgementTokens = null;
 
         if (acknowledgementTokensJSONString != null) {
-            JSONArray acknowledgementTokensJSON = null;
+            List<Object> acknowledgementTokensList = deserializeList(acknowledgementTokensJSONString);
 
-            try {
-                acknowledgementTokensJSON = new JSONArray(acknowledgementTokensJSONString);
-            } catch (JSONException jsonException) {
+            if (acknowledgementTokensList == null) {
                 return false;
             }
 
             acknowledgementTokens = new ArrayList<String>();
 
-            for (int index = 0; index < acknowledgementTokensJSON.length(); index++) {
-                String acknowledgementToken = acknowledgementTokensJSON.optString(index);
-
-                if (acknowledgementToken == null) {
-                    return false;
-                }
-
-                acknowledgementTokens.add(acknowledgementToken);
+            for (Object acknowledgementTokenObject : acknowledgementTokensList) {
+                acknowledgementTokens.add(acknowledgementTokenObject.toString());
             }
         }
+
 
         return fuel.instance().acknowledgeVirtualGoods(tag, acknowledgementTokens);
     }
@@ -225,29 +217,18 @@ public final class FuelSDKUnitySingleton {
         return fuel.instance().sdkSocialShareCompleted();
     }
 
-    public static boolean requestUpdateUserInfo(String userInfoJSONString) {
-        JSONObject userInfoJSON = null;
+    public static boolean requestUpdateUserInfo(String userDetailsJSONString) {
+        Map<String, Object> userDetails = null;
 
-        try {
-            userInfoJSON = new JSONObject(userInfoJSONString);
-        } catch (JSONException jsonException) {
-            return false;
+        if (userDetailsJSONString != null) {
+            userDetails = deserializeMap(userDetailsJSONString);
+
+            if (userDetails == null) {
+                return false;
+            }
         }
 
-        Object userInfoObject = normalizeJSONObject(userInfoJSON);
-
-        if (userInfoObject == null) {
-            return false;
-        }
-
-        if (!(userInfoObject instanceof Map)) {
-            return false;
-        }
-
-        @SuppressWarnings("unchecked")
-        Map<String, Object> userInfo = (Map<String, Object>) userInfoObject;
-
-        return fuel.instance().requestUpdateUserInfo(userInfo);
+        return fuel.instance().requestUpdateUserInfo(userDetails);
     }
 
     public static boolean requestUserAvatars(){
@@ -267,27 +248,16 @@ public final class FuelSDKUnitySingleton {
     }
 
     public static boolean submitMatchResult(String matchResultJSONString) {
-        JSONObject matchResultJSON = null;
-        
-        try {
-            matchResultJSON = new JSONObject(matchResultJSONString);
-        } catch (JSONException jsonException) {
-            return false;
+        Map<String, Object> matchResult = null;
+
+        if (matchResultJSONString != null) {
+            matchResult = deserializeMap(matchResultJSONString);
+
+            if (matchResult == null) {
+                return false;
+            }
         }
-        
-        Object matchResultObject = normalizeJSONObject(matchResultJSON);
-        
-        if (matchResultObject == null) {
-            return false;
-        }
-        
-        if (!(matchResultObject instanceof Map)) {
-            return false;
-        }
-        
-        @SuppressWarnings("unchecked")
-        Map<String, Object> matchResult = (Map<String, Object>) matchResultObject;
-        
+
         return fuelcompete.instance().submitMatchResult(matchResult);
     }
 
@@ -327,60 +297,71 @@ public final class FuelSDKUnitySingleton {
         fuelignite.setup();
     }
 
-    public static boolean execMethod(String method, String params) {
-        try {
-            JSONArray jsonParams = new JSONArray(params);
-            List<Object> paramsList = fueljsonhelper.sharedInstance().toList(jsonParams, false);
-            return  fuelignite.instance().execMethod(method, paramsList);
-        }catch (JSONException e) {
-            Log.e(kLogTag, "ExecMethod error method : "+ method + "; params:" + params + "; Exception" + e.toString());
-            return false;
+    public static boolean execMethod(String method, String paramsJSONString) {
+        List<Object> params = null;
+
+        if (paramsJSONString != null) {
+            params = deserializeList(paramsJSONString);
+
+            if (params == null) {
+                return false;
+            }
         }
+
+        return fuelignite.instance().execMethod(method, params);
     }
 
 
-    public static void sendProgress(String progress, String tags) {
-        try {
-            JSONObject jsonProgress = new JSONObject(progress);
-            HashMap<String, Object> progressMap = (HashMap<String, Object>) fueljsonhelper.sharedInstance().toMap(jsonProgress);
+    public static void sendProgress(String progressJSONString, String tagsJSONString) {
+        Map<String, Object> progress = null;
 
-            List<Object> tagsList = null;
-            if( tags != null ) {
-                JSONArray jsonTags = new JSONArray(tags);
-                if (jsonTags != null) {
-                    tagsList = fueljsonhelper.sharedInstance().toList(jsonTags, false);
-                }
+        if (progressJSONString != null) {
+            progress = deserializeMap(progressJSONString);
+
+            if (progress == null) {
+                return;
             }
-            fuelignite.instance().sendProgress(progressMap, tagsList);
-        }catch (JSONException e) {
-            Log.e(kLogTag, "sendProgress error: "+e.getMessage());
         }
+
+        List<Object> tags = null;
+
+        if (tagsJSONString != null) {
+            tags = deserializeList(tagsJSONString);
+
+            if (tags == null) {
+                return;
+            }
+        }
+
+        fuelignite.instance().sendProgress(progress, tags);
     }
 
-    public static boolean getEvents(String eventTags) {
-        try {
-            List<Object> eventTagsList = null;
-            if( eventTags != null ) {
-                JSONArray jsonEventTags = new JSONArray(eventTags);
-                eventTagsList = fueljsonhelper.sharedInstance().toList(jsonEventTags, false);
+    public static boolean getEvents(String tagsJSONString) {
+        List<Object> tags = null;
+
+        if (tagsJSONString != null) {
+            tags = deserializeList(tagsJSONString);
+
+            if (tags == null) {
+                return false;
             }
-            return  fuelignite.instance().getEvents(eventTagsList);
-        }catch (JSONException e) {
-            return false;
         }
+
+        return fuelignite.instance().getEvents(tags);
     }
 
-    public static boolean getSampleEvents(String eventTags) {
-        try {
-            List<Object> eventTagsList = null;
-            if( eventTags != null ) {
-                JSONArray jsonEventTags = new JSONArray(eventTags);
-                eventTagsList = fueljsonhelper.sharedInstance().toList(jsonEventTags, false);
+    public static boolean getSampleEvents(String tagsJSONString) {
+        List<Object> tags = null;
+
+        if (tagsJSONString != null) {
+            tags = deserializeList(tagsJSONString);
+
+            if (tags == null) {
+                return false;
             }
-            return  fuelignite.instance().getSampleEvents(eventTagsList);
-        }catch (JSONException e) {
-            return false;
         }
+
+        return fuelignite.instance().getSampleEvents(tags);
     }
 
     public static boolean joinEvent(String eventID) {
@@ -431,18 +412,18 @@ public final class FuelSDKUnitySingleton {
         fueldynamics.setup();
     }
 
-    public static boolean setUserConditions(String userConditions) {
-        try{
-            JSONObject jsonProgress = new JSONObject(userConditions);
-            HashMap<String, Object> userConditionsMap = (HashMap<String, Object>) fueljsonhelper.sharedInstance().toMap(jsonProgress);
+    public static boolean setUserConditions(String userConditionsJSONString) {
+        Map<String, Object> userConditions = null;
 
-            return fueldynamics.instance().setUserConditions(userConditionsMap);
+        if (userConditionsJSONString != null) {
+            userConditions = deserializeMap(userConditionsJSONString);
 
-        }catch (JSONException e) {
-            Log.e(kLogTag, "setUserConditions error: "+e.getMessage());
-            return false;
-
+            if (userConditions == null) {
+                return false;
+            }
         }
+
+        return fueldynamics.instance().setUserConditions(userConditions);
     }
 
     public static boolean syncUserValues() {
