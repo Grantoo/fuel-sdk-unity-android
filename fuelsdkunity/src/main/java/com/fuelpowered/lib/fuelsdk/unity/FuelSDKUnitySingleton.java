@@ -388,6 +388,58 @@ public final class FuelSDKUnitySingleton {
         return fuelignite.instance().acceptOffer(offerID);
     }
 
+    public static boolean submitVoteCandidacy(String voteID, String candidacyMetadataJSONString, String candidateTagsJSONString) {
+        Map<String, Object> candidacyMetadata = null;
+
+        if (candidacyMetadataJSONString != null) {
+            candidacyMetadata = deserializeMap(candidacyMetadataJSONString);
+
+            if (candidacyMetadata == null) {
+                return false;
+            }
+        }
+
+        List<Object> candidateTags = null;
+
+        if (candidateTagsJSONString != null) {
+            candidateTags = deserializeList(candidateTagsJSONString);
+
+            if (candidateTags == null) {
+                return false;
+            }
+        }
+
+        return fuelignite.instance().submitVoteCandidacy(voteID, candidacyMetadata, candidateTags);
+    }
+
+    public static boolean submitVote(String voteID, String votesJSONString, String voterTagsJSONString) {
+        Map<String, Object> votes = null;
+
+        if (votesJSONString != null) {
+            votes = deserializeMap(votesJSONString);
+
+            if (votes == null) {
+                return false;
+            }
+        }
+
+        List<Object> voterTags = null;
+
+        if (voterTagsJSONString != null) {
+            voterTags = deserializeList(voterTagsJSONString);
+
+            if (voterTags == null) {
+                return false;
+            }
+        }
+
+        return fuelignite.instance().submitVote(voteID, votes, voterTags);
+    }
+
+    public static boolean getVoteCandidates(String voteID, int numCandidates) {
+        return fuelignite.instance().getVoteCandidates(voteID, numCandidates);
+    }
+
     public static boolean getQuest(String questID) {
         return  fuelignite.instance().getQuest(questID);
     }
