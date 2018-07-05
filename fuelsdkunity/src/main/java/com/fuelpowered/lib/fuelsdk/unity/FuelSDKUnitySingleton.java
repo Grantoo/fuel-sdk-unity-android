@@ -235,6 +235,14 @@ public final class FuelSDKUnitySingleton {
         return fuel.instance().requestUserAvatars();
     }
 
+    public static boolean getUserData(String userID, List<String> keys){
+        return fuel.instance().getUserData(userID, keys);
+    }
+
+    public static boolean submitUserData(Map<String, Object> userData){
+        return fuel.instance().submitUserData(userData);
+    }
+
     public static boolean requestUserInfo(){
         return fuel.instance().requestUserInfo();
     }
@@ -362,6 +370,10 @@ public final class FuelSDKUnitySingleton {
         }
 
         return fuelignite.instance().getSampleEvents(tags);
+    }
+
+    public static boolean getEvent(String activityID) {
+        return  fuelignite.instance().getEvent(activityID);
     }
 
     public static boolean joinEvent(String eventID) {

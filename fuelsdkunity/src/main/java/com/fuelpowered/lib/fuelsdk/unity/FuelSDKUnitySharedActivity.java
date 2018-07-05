@@ -65,6 +65,7 @@ public class FuelSDKUnitySharedActivity {
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_COMPETE_FAIL.toString());
 
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_EVENTS.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_EVENT.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_SAMPLE_EVENTS.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_LEADERBOARD.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_MISSION.toString());
@@ -80,6 +81,7 @@ public class FuelSDKUnitySharedActivity {
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_USER_INFO_UPDATED.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_USER_AVATARS.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_CORE_USER_GAME_DATA.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_CORE_SUBMIT_USER_GAME_DATA.toString());
         mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_RECEIVE_DATA.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_DYNAMICS_ENGINE_LOADED.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_ENGINE_LOADED.toString());
