@@ -236,11 +236,11 @@ public final class FuelSDKUnitySingleton {
     }
 
     public static boolean getUserData(String userID, List<String> keys){
-        return fuel.instance().getUserData(userID, keys);
+        return fuelignite.instance().getUserData(userID, keys);
     }
 
     public static boolean submitUserData(Map<String, Object> userData){
-        return fuel.instance().submitUserData(userData);
+        return fuelignite.instance().submitUserData(userData);
     }
 
     public static boolean requestUserInfo(){
