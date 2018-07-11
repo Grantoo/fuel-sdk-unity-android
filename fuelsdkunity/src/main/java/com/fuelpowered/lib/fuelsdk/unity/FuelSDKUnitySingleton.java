@@ -235,11 +235,31 @@ public final class FuelSDKUnitySingleton {
         return fuel.instance().requestUserAvatars();
     }
 
-    public static boolean getUserData(String userID, List<String> keys){
+    public static boolean getUserData(String userID, String keysJSONString){
+        List<Object> keys = null;
+
+        if (keysJSONString != null) {
+            keys = deserializeList(keysJSONString);
+
+            if (keys == null) {
+                return false;
+            }
+        }
+
         return fuelignite.instance().getUserData(userID, keys);
     }
 
-    public static boolean submitUserData(Map<String, Object> userData){
+    public static boolean submitUserData(String userDataJSONString){
+        Map<String, Object> userData = null;
+
+        if (userDataJSONString != null) {
+            userData = deserializeMap(userDataJSONString);
+
+            if (userData == null) {
+                return false;
+            }
+        }
+
         return fuelignite.instance().submitUserData(userData);
     }
 
