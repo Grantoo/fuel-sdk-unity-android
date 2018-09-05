@@ -472,6 +472,10 @@ public final class FuelSDKUnitySingleton {
         return fuelignite.instance().getVoteCandidates(voteID, numCandidates);
     }
 
+    public static boolean getCandidateLeaders(String voteID, int numCandidates) {
+        return fuelignite.instance().getCandidateLeaders(voteID, numCandidates);
+    }
+
     public static boolean getQuest(String questID) {
         return  fuelignite.instance().getQuest(questID);
     }
