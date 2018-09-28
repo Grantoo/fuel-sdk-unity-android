@@ -420,6 +420,10 @@ public final class FuelSDKUnitySingleton {
         return fuelignite.instance().acceptOffer(offerID);
     }
 
+    public static boolean getVote(String voteID) {
+        return fuelignite.instance().getVote(voteID);
+    }
+
     public static boolean submitVoteCandidacy(String voteID, String candidacyMetadataJSONString, String candidateTagsJSONString) {
         Map<String, Object> candidacyMetadata = null;
 

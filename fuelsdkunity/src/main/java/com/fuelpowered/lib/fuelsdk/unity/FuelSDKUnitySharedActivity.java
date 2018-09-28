@@ -72,6 +72,7 @@ public class FuelSDKUnitySharedActivity {
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_QUEST.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_OFFER.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_ACCEPT_OFFER.toString());
+		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_VOTE.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_JOIN_EVENT.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_SUBMIT_VOTE_CANDIDACY.toString());
 		mIntentFilter.addAction(fuelbroadcasttype.FSDK_BROADCAST_IGNITE_SUBMIT_VOTE.toString());
