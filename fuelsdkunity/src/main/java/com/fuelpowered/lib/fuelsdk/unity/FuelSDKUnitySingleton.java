@@ -13,6 +13,7 @@ import com.fuelpowered.lib.fuelsdk.fueldynamics;
 import com.fuelpowered.lib.fuelsdk.fuelignite;
 import com.fuelpowered.lib.fuelsdk.fueligniteui;
 import com.fuelpowered.lib.fuelsdk.fuellocalnotificationtype;
+import com.fuelpowered.lib.fuelsdk.fuelloginstate;
 import com.fuelpowered.lib.fuelsdk.fuelnotificationtype;
 import com.fuelpowered.lib.fuelsdk.fuelorientationtype;
 import com.unity3d.player.UnityPlayer;
@@ -538,6 +539,15 @@ public final class FuelSDKUnitySingleton {
 
     public static void onQuit() {
         Log.i(kLogTag, "onQuit");
+    }
+
+    //--Login methods
+    public static int getLoginState() {
+        return fuel.instance().getLoginState().ordinal();
+    }
+
+    public static boolean login() {
+        return fuel.instance().login();
     }
     
     //--Utility methods
